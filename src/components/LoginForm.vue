@@ -1,37 +1,22 @@
 <script setup>
-import { ref } from 'vue'
-import {Constants} from "@/universal/Constants.js";
+import { ref } from "vue"
+import axios from "axios"
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 const formData = ref({
   email: '',
   password: '',
 })
 
-const login = async () => {
-  try {
-    const response = await fetch(Constants.API_URL + '/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData.value)
-    });
+async function login() {
+  await axios.post("/login", formData.value).then((response) => {
+    localStorage.setItem("token", response.data.data.token);
+    router.push('/dashboard')
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || 'Kļūda');
-    }
-    localStorage.setItem(Constants.LOCAL_STORAGE.TOKEN, result.data.token);
-    console.log(result.data);
-    window.location.href = '/';
-    alert('Ielogošanās veiksmīga');
-  } catch (error) {
-    alert('Klūda: ' + error.message);
-  }
-};
-
-
+  })
+}
 </script>
 
 <template>

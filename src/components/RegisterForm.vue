@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
-import {Constants} from "@/universal/Constants.js";
+import axios from "axios";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 const formData = ref({
   name: '',
@@ -10,31 +13,13 @@ const formData = ref({
   password_confirmation: '',
 })
 
-const register = async () => {
-  try {
-    const response = await fetch(Constants.API_URL + '/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData.value)
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || 'Kļūda');
-    }
-    localStorage.setItem(Constants.LOCAL_STORAGE.TOKEN, result.data.token);
-    console.log(result.data);
-    window.location.href = '/';
-    alert('Reģistrācija veiksmīga!');
-  } catch (error) {
-    alert('Kļūda: ' + error.message);
-  }
-};
-
-
+async function register() {
+  await axios.post("/register", formData.value).then((response) => {
+    console.log(response.data.data)
+    localStorage.setItem("token", response.data.data.token);
+    router.push('/dashboard')
+  })
+}
 </script>
 
 <template>

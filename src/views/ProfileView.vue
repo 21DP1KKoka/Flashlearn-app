@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, ref} from 'vue'
-import {Constants} from "@/universal/Constants.js";
+import axios from "axios";
 
 const profileData = ref({
   name: '',
@@ -8,40 +8,21 @@ const profileData = ref({
   email: '',
 })
 
-const loadUserData = async () => {
-  try {
-    const response = await fetch(Constants.API_URL + '/me', {
-      method: 'get',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem(
-            Constants.LOCAL_STORAGE.TOKEN
-        )}`,
-        'Content-Type': 'application/json'
-      },
-    });
+async function loadUserData() {
+  await axios.get("/me").then((response) => {
+    profileData.value.name = response.data.data.name
+    profileData.value.nickname = response.data.data.nickname
+    profileData.value.email = response.data.data.email
+  })
+}
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || 'Something went wrong');
-    }
-    profileData.value.name = result.data.name;
-    profileData.value.nickname = result.data.nickname;
-    profileData.value.email = result.data.email;
-  } catch (error) {
-    alert('Error: ' + error.message);
-  }
-};
 onMounted(async () => {
-  console.log('Component mounted, fetching data...');
-  // loading.value = true;
-  await loadUserData();
-  // loading.value = false;
+  loadUserData();
 });
 </script>
 
 <template>
-  <main class="flex justify-center text-center w-screen h-screen pt-12">
+  <main class="flex justify-center text-center w-fill h-screen pt-16">
     <div class="mt-12 bg-white rounded-3xl border-2 border-red-500 w-2/3 h-2/3">
       <h1 class="font-bold text-4xl my-4">Profils</h1>
       <p class="text-2xl my-4">Vārds: {{ profileData.name }}</p>
