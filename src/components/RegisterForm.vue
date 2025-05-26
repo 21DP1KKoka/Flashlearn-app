@@ -7,7 +7,7 @@ const router = useRouter()
 
 const formData = ref({
   name: '',
-  nickname: '',
+  username: '',
   email: '',
   password: '',
   password_confirmation: '',
