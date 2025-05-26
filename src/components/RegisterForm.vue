@@ -6,7 +6,6 @@ import {useRouter} from "vue-router";
 const router = useRouter()
 
 const formData = ref({
-  name: '',
   username: '',
   email: '',
   password: '',
@@ -29,10 +28,7 @@ async function register() {
         <h1 class="mt-12 font-bold text-2xl">Reģistrācija</h1>
         <form @submit.prevent="register" class="flex flex-col items-center justify-center w-3/4 mt-8">
             <div class="w-2/3 mt-4 border-4">
-                <input class="w-full" type="text" placeholder="vārds" v-model="formData.name">
-            </div>
-            <div class="w-2/3 mt-4 border-4">
-                <input class=" w-full" type="text" placeholder="Lietotājvārds" v-model="formData.nickname">
+                <input class=" w-full" type="text" placeholder="Lietotājvārds" v-model="formData.username">
             </div>
             <div class="w-2/3 mt-4 border-4">
                 <input class="w-full" type="text" placeholder="e-pasts" v-model="formData.email">
