@@ -35,6 +35,9 @@ function expandSidebar() {
      <RouterLink class="p-2 m-2 bg-sky-500 rounded-full hover:bg-sky-600 hover:scale-105 text-nowrap"
                  to="/dashboard">{{ expSidebar.expanded ? 'Jūsu kolekcijas' : 'Kol' }}
      </RouterLink>
+     <RouterLink class="p-2 m-2 bg-sky-500 rounded-full hover:bg-sky-600 hover:scale-105 text-nowrap"
+                 to="/shared_collections">{{ expSidebar.expanded ? 'Saņemtās kolekcijas' : 'San' }}
+     </RouterLink>
      <RouterLink class="flex-none p-2 m-2 bg-sky-500 rounded-full hover:bg-sky-600 hover:scale-105"
                  to="/profile">{{ expSidebar.expanded ? 'Profils' : 'Prf' }}
      </RouterLink>

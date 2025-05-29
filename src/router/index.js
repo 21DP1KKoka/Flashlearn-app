@@ -8,6 +8,7 @@ import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import UnauthorizedLayout from "@/layouts/UnauthorizedLayout.vue";
 import AuthHomeView from "@/views/AuthHomeView.vue";
 import CardView from "@/views/CardView.vue";
+import SharedCollectionsView from "@/views/SharedCollectionsView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,15 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView,
+      meta: {
+        layout: DefaultLayout,
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/shared_collections',
+      name: 'shared_collections',
+      component: SharedCollectionsView,
       meta: {
         layout: DefaultLayout,
         requiresAuth: true,

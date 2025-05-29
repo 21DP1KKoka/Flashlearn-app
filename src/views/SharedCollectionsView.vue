@@ -8,7 +8,6 @@ import CollectionStatistics from "@/components/CollectionStatistics.vue";
 
 const collections = ref([])
 const collectionsStatisticsRef = useTemplateRef("collectionsStatistics")
-const collectionUpdateRef = useTemplateRef("collectionUpdate")
 
 async function getUserCollections() {
   await axios.get("/card_collections").then((response) => {
@@ -32,6 +31,8 @@ function editCollectionsToggle() {
   }
 }
 
+
+
 onMounted(() => {
   getUserCollections();
 });
@@ -39,23 +40,19 @@ onMounted(() => {
 function openStatisticsDialog(id) {
   collectionsStatisticsRef.value.show(id)
 }
-
-function openUpdateCollectionDialog(id) {
-  collectionUpdateRef.value.show(id)
-}
 </script>
 
 <template>
   <main>
-    <h1 class="font-bold text-2xl text-center">Jūsu kolekcijas</h1>
-      <button @click="createCollectionToggle"  class="p-2 m-4 bg-sky-400 rounded-xl hover:bg-sky-600 hover:scale-110">
-        Jauna kolekcija
-      </button>
-      <button @click="editCollectionsToggle"  :class="['p-2 m-4 rounded-xl hover:scale-110',  editCollections ? 'bg-red-500 hover:bg-red-600' : 'bg-sky-400 hover:bg-sky-600' ]">
-        {{ editCollections ? 'Beigt rediģēt' : 'Rediģēt kolekcijas' }}
-      </button>
-    <CreateCollection v-if="showModal.visible" @close="getUserCollections()"/>
-    <UpdateCollection v-if="editCollections"/>
+    <h1 class="font-bold text-2xl text-center">Saņemtās kolekcijas</h1>
+<!--    <button @click="createCollectionToggle"  class="p-2 m-4 bg-sky-400 rounded-xl hover:bg-sky-600 hover:scale-110">-->
+<!--      Jauna kolekcija-->
+<!--    </button>-->
+<!--    <button @click="editCollectionsToggle"  :class="['p-2 m-4 rounded-xl hover:scale-110',  editCollections ? 'bg-red-500 hover:bg-red-600' : 'bg-sky-400 hover:bg-sky-600' ]">-->
+<!--      {{ editCollections ? 'Beigt rediģēt' : 'Rediģēt kolekcijas' }}-->
+<!--    </button>-->
+<!--    <CreateCollection v-if="showModal.visible" @close="getUserCollections()"/>-->
+<!--    <UpdateCollection v-if="editCollections"/>-->
     <div v-if="!editCollections" class="flex flex-row flex-wrap justify-center  w-fill rounded-xl mx-4">
       <div v-for="(collection) in collections" :key="collection.id" class="flex items-center bg-white border-black border-2 rounded-xl min-w-80 w-1/3 lg:w-1/3 xl:w-1/4 p-4 m-4">
         <div class="grow">

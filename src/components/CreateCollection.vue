@@ -64,9 +64,9 @@
   </script>
 
   <template>
-    <div :class="['fixed inset-0 bg-black bg-opacity-50 flex justify-center overflow-y-auto w-full h-full  z-50', expSidebar.expanded ? 'pl-32 lg:pl-64' : 'pl-14']">
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center overflow-y-auto w-full h-full pl-14 z-50">
       <div class="flex flex-col items-center w-screen mt-32">
-        <button @click="() => { close(); showModal.visible = false; }" :class="['absolute right-0 mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg', expSidebar.expanded ? 'mr-c15  ' : 'mr-c16']">Aizvērt</button>
+        <button @click="() => { close(); showModal.visible = false; }" class="absolute right-0 mt-4 mr-c17 px-4 py-2 bg-blue-500 text-white rounded-lg">Aizvērt</button>
         <div v-if="!newCollection.collection_id" class="flex flex-col w-2/3 items-center bg-white rounded-2xl p-4 mb-8">
           <h1 class="text-2xl font-medium">{{newCollection.title || "Jauna kolekcija"}}</h1>
           <form @submit.prevent="createCollection" class="flex flex-col items-center w-full">
@@ -76,7 +76,7 @@
             <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">Izveidot</button>
           </form>
         </div>
-        <div v-if="newCollection.collection_id" class="flex flex-col w-2/3 items-center bg-white p-4 mb-12 rounded-2xl">
+        <div v-else class="flex flex-col w-2/3 items-center bg-white p-4 mb-12 rounded-2xl">
           <h1 class="text-2xl font-medium">{{newCollection.title}}</h1>
           <h2>Izveido kartītes</h2>
           <form @submit.prevent="createCard" class="flex flex-col items-center w-full mt-8">
@@ -93,7 +93,7 @@
           <div class="flex flex-row flex-wrap justify-center bg-white w-full">
             <div v-for="(card, index) in cards" :key="card.id" class="flex items-center border-black border-2 rounded-xl w-1/2 xl:w-1/3 p-4 m-4">
               <div v-if="!card.editCard" class="flex-auto ">
-                <h1>card_id: {{ card.id }}</h1> <!-- nozīmē to ka glabā card_id lai varētu edit un delete-->
+<!--                <h1>card_id: {{ card.id }}</h1> &lt;!&ndash; nozīmē to ka glabā card_id lai varētu edit un delete&ndash;&gt;-->
                 <h1 class="font-medium">Kartītes priekšpuse:</h1>
                 <h1>{{ card.card_front }}</h1>
                 <h1 class="font-medium" >Kartītes mugurpuse:</h1>

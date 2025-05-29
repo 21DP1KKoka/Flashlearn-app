@@ -24,6 +24,14 @@ async function getCollection() {
     displayCard()
   })
 }
+async function sendResults() {
+  await axios.post("/card_results", {
+    card_collection_id:  route.params.id,
+    card_results: results,
+  }).then((response) => {
+    console.log(response)
+  })
+}
 
 function displayCard() {
   const unusedCards = collection.value.cards.filter(card => !card.cardUsed);
@@ -32,6 +40,7 @@ function displayCard() {
     selectedCard.value = null;
     console.log("All cards have been used!");
     console.log(results)
+    sendResults()
     return;
   }
   const randomIndex = Math.floor(Math.random() * unusedCards.length);
@@ -42,7 +51,7 @@ function displayCard() {
 function nextCard(result) {
   results.push({
   card_id: selectedCard.value.id,
-  card_result: result,
+  coefficient: result,
   })
   flipCard.value = false
   cardFliped.value = false

@@ -11,6 +11,10 @@ const updatedCard = ref( {
 
 const collections = ref([])
 const cards = ref([])
+const newCard = ref( {
+  card_front: "",
+  card_back: "",
+})
 
 function toggleCards(collection) {
   // collections.value[index].showCards = !collections.value[index].showCards;
@@ -27,7 +31,6 @@ function toggleCardEdit(card) {
     updatedCard.value.card_front = ""
     updatedCard.value.card_back = ""
   }
-
 }
 
 async function getUserCollections() {
@@ -42,19 +45,19 @@ async function getUserCollections() {
         }))
       };
     })
-    console.log(collections)
   })
 }
 // TODO pievienot editam un new card
 async function createCard(collection) {
   await axios.post("/cards", {
-    card_collection_id: newCollection.value.collection_id,
+    card_collection_id: collection.id,
     card_front: newCard.value.card_front,
     card_back: newCard.value.card_back,
   }).then((response) => {
     cards.value.push(response.data.data)
     newCard.value.card_front = ""
     newCard.value.card_back = ""
+    // getUserCollections()
   })
 }
 async function updateCard(id, collection_id, card) {
@@ -83,23 +86,35 @@ function close() {
   <div class="flex flex-row flex-wrap justify-center  w-fill rounded-xl mx-4">
     <div v-for="collection in collections" :key="collection.id" class="flex items-center bg-white border-black border-2 rounded-xl w-1/3 xl:w-1/4 p-4 m-4">
       <div class="flex-auto ">
-        <h1>collection_id: {{ collection.id }}</h1> <!-- nozīmē to ka glabā card_id lai varētu edit un delete-->
         <h1 class=" text-2xl font-medium">{{ collection.title }}</h1>
 
         <div v-if="collection.showCards" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center overflow-y-auto w-full h-full pl-14 z-50">
           <div class="flex flex-col items-center w-screen mt-32">
-            <button @click="toggleCards(collection)" class="absolute right-0 mt-4 mr-c16 px-4 py-2 bg-blue-500 text-white rounded-lg">Aizvērt</button>
+            <button @click="toggleCards(collection)" class="absolute right-0 mt-4 mr-c17 px-4 py-2 bg-blue-500 text-white rounded-lg">Aizvērt</button>
+            <button @click="toggleCards(collection)" class="absolute left-0 mt-4 ml-c20 px-4 py-2 bg-blue-500 text-white rounded-lg">Dzēst kolekciju</button>
             <div class="flex flex-col w-2/3 items-center bg-white p-4 mb-12 rounded-2xl">
-              <h1>card_id: {{ collection.id }}</h1> <!-- nozīmē to ka glabā card_id lai varētu edit un delete-->
-              <h1 class="font-medium">Kartītes priekšpuse:</h1>
-              <h1>{{ collection.title }}</h1>
+              <h1 class="text-2xl font-bold">{{ collection.title }}</h1>
+              <h2>Izveido kartītes vai rediģē tās</h2>
+              <form @submit.prevent="createCard(collection)" class="flex flex-col items-center w-full mt-8">
+                <label class="w-2/3 text-">Ievadi kartītes priekšpusi</label>
+                <div class="w-2/3 border-4">
+                  <input class="w-full rounded p-2" type="text" placeholder="Kartītes priekšpuse" v-model="newCard.card_front">
+                </div>
+                <label class="w-2/3 mt-4">Ievadi kartītes mugurpusi</label>
+                <div class="w-2/3 border-4">
+                  <input class="w-full rounded p-2" type="text" placeholder="Kartītes mugurpuse" v-model="newCard.card_back">
+                </div>
+                <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg ">Izveidot</button>
+              </form>
               <div class="flex flex-row flex-wrap justify-center bg-white w-full">
                 <div v-for="card in collection.cards" :key="card.id" class="flex items-center border-black border-2 rounded-xl w-1/2 xl:w-1/3 p-4 m-4">
                   <div v-if="!card.editCard" class="flex-auto ">
-                    <h1 class="font-medium">Kartītes priekšpuse:</h1>
-                    <h1>{{ card.card_front }}</h1>
-                    <h1 class="font-medium" >Kartītes mugurpuse:</h1>
-                    <h1>{{ card.card_back }}</h1>
+                    <div class="h-full w-full">
+                      <h1 class="font-medium">Kartītes priekšpuse:</h1>
+                      <h1>{{ card.card_front }}</h1>
+                      <h1 class="font-medium" >Kartītes mugurpuse:</h1>
+                      <h1>{{ card.card_back }}</h1>
+                    </div>
                     <button @click="toggleCardEdit(card)" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">Rediģēt</button>
                   </div>
 

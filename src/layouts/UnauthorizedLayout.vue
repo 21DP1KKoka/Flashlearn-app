@@ -5,7 +5,7 @@ import {RouterLink} from "vue-router";
 </script>
 
 <template>
-  <nav class="flex items-center justify-end  bg-sky-300 w-full h-14 absolute">
+  <nav class="flex items-center justify-end bg-sky-300 w-full h-14 fixed top-0 border-b-2 border-black shadow-xl">
     <div class="w-full flex justify-start">
       <RouterLink class="flex-none p-2 m-2 rounded-full hover:bg-sky-600 text-3xl font-bold hover:scale-105"
                   to="/">FlashLearn
@@ -18,7 +18,7 @@ import {RouterLink} from "vue-router";
                 to="/login">Ienāc
     </RouterLink>
   </nav>
-  <router-view class="bg-sky-100" />
+  <router-view :class="['bg-sky-100 pt-16 w-full min-h-screen h-fill ']" />
 </template>
 
 <style scoped>

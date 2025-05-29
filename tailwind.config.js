@@ -7,6 +7,8 @@ export default {
   theme: {
     extend: {
       margin: {
+        'c20': '21.0%',
+        'c17': '17.6%',
         'c16': '16.6%',
         'c15': '15.5%',
       },
