@@ -113,7 +113,6 @@ async function coppyLink() {
     <div class="flex flex-col items-center w-screen mt-32 ">
       <button @click="close" class="absolute right-0 mt-4 mr-c17 px-4 py-2 bg-blue-500 text-white rounded-lg">Aizvērt</button>
       <div class="absolute left-0 ml-c20 flex max-w-64 flex-col">
-        <button @click="getShareLink(collection_id)" class="w-44 mt-4 py-2 bg-blue-500 text-white rounded-lg">Ziņot par kolekciju</button>
         <button v-if="link_coppied" @click="coppyLink()" class="max-w-1/3 text-wrap mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">Atkārtoti kopēt saiti</button>
       </div>
 
