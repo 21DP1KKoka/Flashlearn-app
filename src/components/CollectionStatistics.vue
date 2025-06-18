@@ -97,7 +97,7 @@ const lineChartOptions = ref({
 async function getShareLink(collection_id) {
   await axios.get(`/card_collections/generateURL/${collection_id}`).then((response) => {
     console.log(response.data)
-    sharedURL.value = "https://flashlearn.up.railway.app/collection_received/" + response.data.slice(45)
+    sharedURL.value = "https://flashlearn.up.railway.app/collection_received/" + response.data.slice(76)
   })
   await navigator.clipboard.writeText(sharedURL.value);
   link_coppied.value = true
