@@ -71,7 +71,7 @@
           <h1 class="text-2xl font-medium">{{newCollection.title || "Jauna kolekcija"}}</h1>
           <form @submit.prevent="createCollection" class="flex flex-col items-center w-full">
             <div class="w-2/3 mt-4 border-4 rounded">
-              <input class="w-full rounded p-2" type="text" placeholder="Kolekcijas nosaukums" v-model="newCollection.title">
+              <input class="w-full rounded p-2" type="text" maxlength="32" placeholder="Kolekcijas nosaukums" v-model="newCollection.title">
             </div>
             <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">Izveidot</button>
           </form>
@@ -82,11 +82,11 @@
           <form @submit.prevent="createCard" class="flex flex-col items-center w-full mt-8">
             <label class="w-2/3 text-">Ievadi kartītes priekšpusi</label>
             <div class="w-2/3 border-4">
-              <input class="w-full rounded p-2" type="text" placeholder="Kartītes priekšpuse" v-model="newCard.card_front">
+              <input class="w-full rounded p-2" type="text" maxlength="256" placeholder="Kartītes priekšpuse" v-model="newCard.card_front">
             </div>
             <label class="w-2/3 mt-4">Ievadi kartītes mugurpusi</label>
             <div class="w-2/3 border-4">
-              <input class="w-full rounded p-2" type="text" placeholder="Kartītes mugurpuse" v-model="newCard.card_back">
+              <input class="w-full rounded p-2" type="text" maxlength="256" placeholder="Kartītes mugurpuse" v-model="newCard.card_back">
             </div>
             <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg ">Izveidot</button>
           </form>
@@ -105,11 +105,11 @@
               <form v-else @submit.prevent="updateCard(card.id, card)" class="flex flex-col items-left w-full ">
                 <label class="w-2/3 text-">Ievadi kartītes priekšpusi</label>
                 <div class="w-fill border-4">
-                  <input class="w-full" type="text" placeholder="Kartītes priekšpuse" v-model="updatedCard.card_front">
+                  <input class="w-full" type="text" maxlength="256" placeholder="Kartītes priekšpuse" v-model="updatedCard.card_front">
                 </div>
                 <label class="w-2/3 mt-4">Ievadi kartītes mugurpusi</label>
                 <div class="w-fill border-4">
-                  <input class="w-full" type="text" placeholder="Kartītes mugurpuse" v-model="updatedCard.card_back">
+                  <input class="w-full" type="text" maxlength="256" placeholder="Kartītes mugurpuse" v-model="updatedCard.card_back">
                 </div>
                 <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg flex-1 ">Atjaunot</button>
                 <button @click="toggleCardEdit(card); updatedCard.card_front = '';  updatedCard.card_back = '';"

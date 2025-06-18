@@ -1,6 +1,6 @@
 <script setup>
 import {ref, onMounted, reactive, useTemplateRef} from "vue";
-import {selectedStatsId, showModal} from "@/stores/reactives.js";
+import {showModal} from "@/stores/reactives.js";
 import axios from "axios";
 import CreateCollection from "@/components/CreateCollection.vue";
 import UpdateCollection from "@/components/UpdateCollection.vue";
@@ -57,20 +57,17 @@ function openUpdateCollectionDialog(id) {
     <CreateCollection v-if="showModal.visible" @close="getUserCollections()"/>
     <UpdateCollection v-if="editCollections"/>
     <div v-if="!editCollections" class="flex flex-row flex-wrap justify-center  w-fill rounded-xl mx-4">
-      <div v-for="(collection) in collections" :key="collection.id" class="flex items-center bg-white border-black border-2 rounded-xl min-w-80 w-1/3 lg:w-1/3 xl:w-1/4 p-4 m-4">
-        <div class="grow">
-          <h1>collection_id: {{ collection.id }}</h1> <!-- nozīmē to ka glabā card_id lai varētu sūtīt edit un delete-->
-          <h1 class="text-2xl font-medium text-ellipsis break-words w-11/12">{{ collection.title }}</h1>
+      <div v-for="(collection) in collections" :key="collection.id" class="flex items-center bg-white border-black border-2 rounded-xl max-h-32 min-w-80 w-1/3 lg:w-1/3 xl:w-1/4 p-4 m-4">
+        <div class="grow pr-4 overflow-auto ">
+          <h1 class="text-2xl font-medium text-ellipsis break-words truncate hover:text-clip">{{ collection.title }}</h1>
         </div>
         <div class="flex flex-col text-center">
-          <router-link :to="`/collections/${collection.id}`" class="px-4 py-2 bg-blue-500 text-white rounded-lg">
-            Apgūt
-          </router-link>
-          <button @click="openStatisticsDialog(collection)" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg">Statistika</button>
+
+          <button @click="openStatisticsDialog(collection)" class=" px-4 py-2 bg-blue-500 text-white rounded-lg">Atvērt</button>
         </div>
       </div>
     </div>
-    <CollectionStatistics ref="collectionsStatistics" @close="console.log('tetee')"/>  <!-- :collection-id="selectedStatsId-->
+    <CollectionStatistics ref="collectionsStatistics" @close=""/>
   </main>
 </template>
 
